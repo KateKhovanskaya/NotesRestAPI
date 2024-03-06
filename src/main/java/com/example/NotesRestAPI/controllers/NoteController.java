@@ -1,6 +1,7 @@
 package com.example.NotesRestAPI.controllers;
 
 import com.example.NotesRestAPI.model.MyNote;
+import com.example.NotesRestAPI.services.FileGateWay;
 import com.example.NotesRestAPI.services.NoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,10 @@ public class NoteController {
      * Сервис для управления заметками
      */
     private final NoteService noteService;
+    /**
+     * Сервис (интерфейс) интеграции для записи заметок в файл
+     */
+    private final FileGateWay fileGateWay;
 
     /**
      * Добавление заметки
@@ -25,7 +30,10 @@ public class NoteController {
      */
     @PostMapping
     public ResponseEntity<MyNote> addNote(@RequestBody MyNote note){
-        return new ResponseEntity<>(noteService.addNote(note), HttpStatus.CREATED);
+        ResponseEntity<MyNote> resultEntity = new ResponseEntity<>(noteService.addNote(note), HttpStatus.CREATED);
+        fileGateWay.writeToFile("notes.txt", resultEntity);
+        return resultEntity;
+//        return new ResponseEntity<>(noteService.addNote(note), HttpStatus.CREATED);
     }
 
     /**

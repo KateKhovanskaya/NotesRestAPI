@@ -1,0 +1,2 @@
+<201 CREATED Created,MyNote(id=1, title=Заметка 1, description=Описание заметки 1, creatingData=2024-03-06T19:54:09.995825200),[]>
+<201 CREATED Created,MyNote(id=2, title=Заметка 2, description=Описание заметки 2, creatingData=2024-03-06T19:54:42.471322800),[]>

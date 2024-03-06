@@ -63,8 +63,16 @@
 			<artifactId>micrometer-registry-prometheus</artifactId>
 			<version>1.12.3</version>
 		</dependency>
-
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-integration</artifactId>
+			<version>3.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-file</artifactId>
+			<version>6.2.2</version>
+		</dependency>
 	</dependencies>
 	<repositories>
 		<repository>
