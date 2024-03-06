@@ -1,8 +1,11 @@
 package com.example.NotesRestAPI.services;
 
+import com.example.NotesRestAPI.events.NoteUpdatedEvent;
 import com.example.NotesRestAPI.model.MyNote;
 import com.example.NotesRestAPI.repositories.NoteRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +17,11 @@ public class NoteService {
      * Репозиторий для связи с БД
      */
     private final NoteRepository repository;
+    /**
+     * Публикатор событий, которые слушаются с помощью ApplicationListener
+     */
+    @Autowired
+    private ApplicationEventPublisher publisher;
 
     /**
      * Добавление заметки в репозиторий
@@ -51,6 +59,7 @@ public class NoteService {
         MyNote updatingNote = getNoteById(id);
         updatingNote.setTitle(note.getTitle());
         updatingNote.setDescription(note.getDescription());
+        publisher.publishEvent(new NoteUpdatedEvent(this, updatingNote));
         return repository.save(updatingNote);
     }
 
